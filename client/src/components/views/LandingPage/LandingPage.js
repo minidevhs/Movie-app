@@ -10,7 +10,7 @@ function LandingPage() {
   const [CurrentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
-    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-Korean&page=1`;
+    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     fetchMovies(endpoint);
   }, []);
 
@@ -18,7 +18,7 @@ function LandingPage() {
     fetch(endpoint)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response.results);
+        console.log(response);
         setMovies([...Movies, ...response.results]);
         setMainMovieImage(response.results[0]);
         setCurrentPage(response.page);
@@ -26,7 +26,7 @@ function LandingPage() {
   };
 
   const loadMoreItems = () => {
-    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-Korean&page=${
+    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
       CurrentPage + 1
     }`;
     fetchMovies(endpoint);
@@ -51,6 +51,7 @@ function LandingPage() {
             Movies.map((movie, index) => (
               <React.Fragment key={index}>
                 <GridCards
+                  LandingPage
                   image={
                     movie.poster_path
                       ? `${IMAGE_BASE_URL}w500/${movie.poster_path}`
